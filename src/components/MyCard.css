@@ -1,0 +1,20 @@
+.text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  body{
+    font-size: 1.2em;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+  }
+
+  .my-card {
+    font-family: "Abel", sans-serif;
+    font-weight: 400;
+    font-style: bolder;
+    font-size: 40px;
+}
