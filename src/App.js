@@ -1,10 +1,10 @@
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MyNav from './components/MyNav.js';
-import MyFooter from './components/MyFooter.js';
-import Welcome from './components/Welcome.js';
-import AllTheBooks from './components/AllTheBooks.js';
+import MyNav from './components/MyNav';
+import MyFooter from './components/MyFooter';
+import Welcome from './components/Welcome';
+import AllTheBooks from './components/AllTheBooks';
 
 function App() {
   return (

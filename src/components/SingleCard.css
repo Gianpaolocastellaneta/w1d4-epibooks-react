@@ -1,15 +1,8 @@
-.text-ellipsis {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  body{
+body{
     font-size: 1.2em;
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
+    background-color: rgb(223, 219, 219);
   }
 
   .my-card {
@@ -17,4 +10,10 @@
     font-weight: 400;
     font-style: bolder;
     font-size: 40px;
+    padding: 0!important;
+}
+
+.selected {
+    border: 2px solid red;
+    scale: 1.04;
 }
