@@ -2,7 +2,7 @@ body{
     font-size: 1.2em;
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
-    background-color: rgb(223, 219, 219);
+    background-color: rgb(253, 249, 249);
   }
 
   .my-card {
@@ -14,6 +14,14 @@ body{
 }
 
 .selected {
-    border: 2px solid red;
-    scale: 1.04;
+    height: 600px;
+    width: 230px;
+    cursor: pointer;
+}
+
+.redBorder {
+  height: 600px;
+  width: 230px;
+  cursor: pointer;
+  border: 2px solid red;
 }
