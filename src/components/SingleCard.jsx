@@ -1,46 +1,35 @@
-import {Button, Card, Col} from 'react-bootstrap';
 import './SingleCard.css'
-import { useState } from 'react';
-import CommentArea from './CommentArea';
+import { ThemeContext } from '../context/ThemeContextProvider';
+// import CommentArea from './CommentArea';
+
+import { Card, Button } from 'react-bootstrap';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
-function SingleCard({book}) {
-  //creo uno Stato per selezionare che ha come valore iniziale false
-  const [selected, setSelected] = useState(false);
 
-  // creo una funzione per cambiare lo stato di selected da falso a vero
-  const handleClick = () => {
-    setSelected(!selected);
-  };
 
-  // className={selected ? 'selected my-card' : 'my-card'}
 
-  
-  
+function SingleCard({ book, select, handleClick }) {
+
+  const { theme } = useContext(ThemeContext)
+
+
+
   return (
-    //aggiungo onClick={handleClick} se selected è vero aggiungo la classe se falso la rimuovo usando il ternario
     <>
-    <Col xs={6} lg={3} style={{margin: '10px 0 20px 0' }}>
-    <Card className={selected ? " redBorder " : "selected"}  >
-      <Card.Img variant="top" src={book.img} onClick={handleClick} />
-      <Card.Body className="d-flex flex-column">
-        <Card.Title className='text-center'>{book.title}</Card.Title>
-        <Card.Text className='text-center mt-2 h5 text-primary'>
-            Price €{book.price}
-        </Card.Text>
-        <Button className="mt-auto" variant="dark" onClick={handleClick}>Reviews</Button>
+      <Card className={theme === 'light' ? 'myCard' : 'myCard bg-dark '} style={{ width: '18rem' }} data-bs-theme={theme}>
+        <Card.Img data-testid="card-image" variant="top" className={select === book.asin ? "imgBook redBorder" : "imgBook"} src={book.img} onClick={() => handleClick(book.asin)} />
+        <Card.Body >
+          <Card.Title>{book.title}</Card.Title>
+          <Card.Text className='text-center fw-bold '>{book.price}€</Card.Text>
+        </Card.Body>
+        <Button as={Link} to={`/bookdetails/${book.asin}`} variant="secondary" className='mx-4 my-4' >Details</Button>
 
-      </Card.Body>
-      
-      
-    </Card>
-    {/* inserisco che se selected è true visualizzo CommentArea sotto la Card */}
-    {selected && <CommentArea asin={book.asin} />}
-   
-    </Col>
-       
-       </>
+      </Card>
+
+    </>
   )
 }
 

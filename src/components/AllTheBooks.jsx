@@ -1,62 +1,43 @@
-// import  history  from "../data/history.json";
-import { Row } from 'react-bootstrap';
 import SingleCard from "./SingleCard";
-import { books } from '../data/Books';
-import React, { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
+import { Row, Col, Container } from "react-bootstrap";
+import { useState } from "react";
+import CommentArea from "./CommentArea";
+import { ThemeContext } from '../context/ThemeContextProvider';
+import { useContext } from 'react';
+// import { books } from "../data/Books";
 
 
-// import { useState } from 'react';
 
-//passo la props searchQuery che viene fornita da App
-function AllTheBooks({ searchQuery }) {
+function AllTheBooks({ resultSearch }) {
+    const { theme } = useContext(ThemeContext)
+    const [select, setSelect] = useState(null)
+    const handleClick = (asin) => {
+        if (asin === select) {
+            setSelect(null)
+        } else {
+            setSelect(asin)
+        }
 
-    const { theme } = useContext(ThemeContext);
-
-    const backgroundStyle = {
-      backgroundColor: theme === 'light' ? '#ffffff' : '#333333',
-      color: theme === 'light' ? '#000000' : '#ffffff',
-      minHeight: '100vh'
-    };
-
-
-    // const [search, setSearch] = useState("");
-    // const [resultSearch, setResultSearch] = useState(history);
-    // const handleSearch = (event) => {
-    //     setSearch(event.target.value)
-    //     //filtriamo i libri con il titolo e devono includere la parola cercata nel value
-    //     const resultTemp = history.filter((book) => {
-    //         //ricerca per titolo oppure (||) per asin
-    //         return book.title.toLowerCase().includes(event.target.value.toLowerCase()) || book.asin.includes(event.target.value)
-    //     })
-    //     //setResultSearch deve essere uguale a resultTemp
-    //     setResultSearch(resultTemp)
-    // }
+    }
     return (
-        <div style={backgroundStyle}>
-        <div className="container">
-            
-            {/* <div className="d-flex justify-content-center">
-                <Form.Control onChange={handleSearch} type="text" placeholder="Cerca libro..." className="mb-5 bg-light w-75" />
-            </div> */}
+        <main className={theme === "light" ? "mx-2" : "bg-dark px-3"} data-bs-theme={theme}>
 
-
-            <Row> {books
-             // eseguo filer per campo di ricerca in base al titolo
-             .filter((b) => b.title.toLowerCase().includes(searchQuery))
-             // eseguo il mapping per le single card
-             .map((b) => (<SingleCard key={b.asin} book={b} />
-
-                )
-                )}
-            </Row>
-        </div>
-        </div>
-      
-
-
-
-
-    );
+            <Container fluid>
+                <Row>
+                    <Col xs={6} md={8} lg={9}>
+                        <div className="d-flex flex-wrap justify-content-evenly pe-0 ">
+                            {resultSearch.map((b) => (
+                                <SingleCard key={b.asin} book={b} select={select} handleClick={handleClick} />
+                            )
+                            )}
+                        </div>
+                    </Col>
+                    <Col xs={6} md={4} lg={3}>
+                        {select && <CommentArea asin={select} />}
+                    </Col>
+                </Row>
+            </Container>
+        </main>
+    )
 }
 export default AllTheBooks;

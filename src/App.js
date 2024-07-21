@@ -6,36 +6,40 @@ import MyFooter from './components/MyFooter';
 import Welcome from './components/Welcome';
 import AllTheBooks from './components/AllTheBooks';
 import { useState } from 'react';
-import { ThemeProvider } from './components/ThemeContext';
-// import { books } from './data/Books';
+import { books } from "./data/Books";
+
+import ThemeContextProvider from "./context/ThemeContextProvider";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+import BookDetails from "./pages/BookDetails";
 
 function App() {
-  //creo uno state per il campo di ricerca
-  const [searchQuery, setSearchQuery] = useState('')
-
-  // const [search, setSearch] = useState("");
-  //   const [resultSearch, setResultSearch] = useState(books)
-  //   const handleSearch = (event) => {
-  //       setSearch(event.target.value);
-  //       const resultSearchTemp = books.filter((b) => {
-  //         return b.title.toLowerCase().includes(event.target.value.toLowerCase());
-  //       })
-  //       setResultSearch(resultSearchTemp)
-  //   }
+  const [search, setSearch] = useState("");
+    const [resultSearch, setResultSearch] = useState(books)
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        const resultSearchTemp = books.filter((b) => {
+          return b.title.toLowerCase().includes(event.target.value.toLowerCase());
+        })
+        setResultSearch(resultSearchTemp)
+    }
   return (
-    <div>
-          <ThemeProvider>
-
-      {/* passo la props searchQuery e setSearchQuery che viene fornita da App a MyNav */}
-      <MyNav searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Welcome />
-      {/* passo la props searchQuery che viene fornita da App a AllTheBooks */}
-      <AllTheBooks searchQuery={searchQuery} />
-      <MyFooter />
-      </ThemeProvider>
-
-    </div>
+    <BrowserRouter>
+    <ThemeContextProvider>
+      <div>
+        <MyNav handleSearch={handleSearch} />
+        <Welcome />
+         <Routes>  
+         <Route path="/" element={<AllTheBooks resultSearch={resultSearch} />}/>
+        <Route path="/bookdetails/:asin" element={<BookDetails />}/>
+        <Route path="/404" element={<NotFound/>}/>
+        <Route path="/*" element={<Navigate to="/404" />} />
+        </Routes>
+        <MyFooter />
+      </div>
+    </ThemeContextProvider>
+    </BrowserRouter>
+    
   );
 }
-
 export default App;

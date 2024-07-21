@@ -1,24 +1,18 @@
- import SingleComment from "./SingleComment";
+import SingleComment from "./SingleComment"
+import { Alert } from 'react-bootstrap';
+import { useState } from 'react';
 
 
-
- function CommentList({comments, loadComments}) {
-
-    if (!Array.isArray(comments) || comments.length === 0){
-        return <p>No comments available yet</p>
-    }
-
+function CommentList({ comments, loadComments }) {
+    const [alert, setAlert] = useState(null)
     return (
-
-         <div className="w-75">
-
-         
+        <>
+            {alert && <Alert key={alert.success ? "success" : "danger"} variant={alert.success ? "success" : "danger"} onClose={() => setAlert(null)} dismissible>{alert.message}</Alert>}
             {comments.map(c =>
-                <SingleComment key={c._id} comment={c} loadComments={loadComments}  />)}
+                <SingleComment key={c._id} comment={c} loadComments={loadComments} setAlert={setAlert} />)}
 
-        </div>
-            
+        </>
+
     )
 }
-
 export default CommentList

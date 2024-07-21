@@ -5,23 +5,25 @@ body{
     background-color: rgb(253, 249, 249);
   }
 
-  .my-card {
-    font-family: "Abel", sans-serif;
-    font-weight: 400;
-    font-style: bolder;
-    font-size: 40px;
-    padding: 0!important;
-}
-
-.selected {
-    height: 600px;
-    width: 230px;
+  .myCard{
+    margin: 15px;
+    border-radius: 0px;
+    transition: transform 0.2s; 
     cursor: pointer;
 }
 
-.redBorder {
-  height: 600px;
-  width: 230px;
-  cursor: pointer;
-  border: 2px solid red;
+.myCard:hover{
+    transform: scale(1.05)
 }
+
+.imgBook{
+    width: 286px;
+    height: 350px;
+    border-radius: 0px;
+
+}
+
+.redBorder{
+    border: solid 3px red !important
+}
+
